@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Content Detail</title>
+</head>
+<body>
+
+    <style>
+   
+
+    .lesson-wrapper {
+        background: #e5e7eb;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        max-width: 1100px;
+        margin: 20px auto;
+}
+
+/* HEADER */
+.lesson-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.lesson-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.3;
+    border-left: 5px solid #2563eb;
+    padding-left: 14px;
+}
+
+/* TEACHER */
+.lesson-teacher {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 12px;
+}
+
+.lesson-teacher img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.teacher-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.teacher-role {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* VIDEO */
+.lesson-video-wrapper {
+    margin-top: 16px;
+}
+
+.lesson-video iframe {
+    border-radius: 16px;
+}
+
+/* TEXT */
+.lesson-text {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #374151;
+}
+
+/* FALLBACK */
+.lesson-fallback {
+    display: inline-block;
+    padding: 14px 20px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.lesson-fallback:hover {
+    background: #1d4ed8;
+}
+
+</style>
+<div class="lesson-wrapper">
+
+    <!-- Header -->
+    <div class="lesson-header">
+        <div class="lesson-title-box">
+            <h2 class="lesson-title">
+                {{ content.item.title }}
+            </h2>
+        </div>
+
+        <div class="lesson-teacher">
+            <div>
+                <div class="teacher-name">
+                    <span style="font-size:20px;">{{ content.item.owner.full_name }}</span>
+                </div>
+                <div class="teacher-role">
+                    <span style="font-size:18px;">Instructor</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    {% if content.content_type.model == 'video' %}
+        <div class="lesson-video-wrapper">
+            {% if content.item.embed_url %}
+                <div class="ratio ratio-16x9 lesson-video">
+                    <iframe
+                        src="{{ content.item.embed_url }}"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe><br>
+                    <span style="font-size:22px; margin-top:20px; display:inline-block; font-weight:300;">
+                        Python is a dynamically typed language as opposed to statically typed (like Go, Rust). Python interpreter (responsible for executing Python code) doesn’t necessarily know the types of variables before its execution.
+This dynamic nature of Python is both its strength and weakness. Its strength lies in the fact that you don’t have to worry about the type system, enabling you to achieve a lot in less time (e.g., throwaway POC projects). Its weakness, however, affects the longevity of the software (hard to refactor and lacks self-explanatory structure). Type annotations (introduced in Python v3.5) try to bridge the gap and it is often better than having no types. I say tries because, at the end of the, it's a sophisticated linter and has no implications during the runtime.
+                    </span>
+                </div>
+            {% else %}
+                <a href="{{ content.item.url }}" target="_blank" class="lesson-fallback">
+                    🎥 Videoni YouTube’da ko‘rish
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if content.content_type.model == 'text' %}
+        <div class="lesson-text">
+            {{ content.item.content|linebreaks }}
+        </div>
+    {% endif %}
+
+    {% if content.content_type.model == 'file' %}
+        <a href="{% url 'content_file_download' content.id %}"
+        class="lesson-fallback"
+        style="margin-top:20px;">
+            📎 {{ content.item.title }} — Yuklab olish
+    </a>
+{% endif %}
+
+</div>
+
+
+</body>
+</html>

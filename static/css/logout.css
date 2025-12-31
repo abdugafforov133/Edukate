@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.logout-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f9bff, #1c5fd4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-card {
+    background: #fff;
+    width: 360px;
+    padding: 35px 30px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+}
+
+.icon-box {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #e9f4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+}
+
+.logout-card h2 {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logout-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Umumiy tugma sozlamasi */
+.btn {
+    width: 100%;
+    height: 44px;              /* 🔑 bir xil balandlik */
+    padding: 0 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent; /* 🔑 border farqini yo‘q qiladi */
+    box-sizing: border-box;        /* 🔑 MUHIM */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* Cancel */
+.btn.cancel {
+    background: #1da1f2;
+    color: #fff;
+    border-color: #1da1f2;
+}
+
+/* Logout */
+.btn.logout {
+    background: #fff;
+    color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+
+
+.icon-box {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #e9f4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-icon {
+    width: 34px;
+    height: 34px;
+    color: #1da1f2; /* ikonka rangi */
+}
+
+
+.logout-card:hover .logout-icon {
+    transform: translateX(4px);
+    transition: 0.3s;
+}

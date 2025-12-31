@@ -1,0 +1,194 @@
+{% extends 'upskill/base/base.html' %}
+{%load static%}
+
+{%block mainPage%}
+    Course Detail
+{%endblock%}
+
+{%block variablePath%} Detail {%endblock%}
+
+{%block course_detail%}
+
+    <style>
+        .lesson-item {
+            cursor: pointer;
+        }
+
+        .lesson-item:hover {
+            background-color: #f5f8ff;
+        }
+    </style>
+    <!-- Detail Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="mb-5">
+                        <div class="section-title position-relative mb-5">
+                            <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Course Detail</h6>
+                            <h1 class="display-4">{{course.title}}</h1>
+                        </div>
+                        <img class="img-fluid rounded w-100 mb-4" src="{{course.get_image_url}}" alt="Image">
+                        <p>{{course.overview}}</p>
+
+                        <h2 class="mb-4">Modules</h2>
+                        <div class="accordion" id="courseModules">
+                            {% for index, module in modules %}
+
+                            <div class="card mb-3">
+
+                                <!-- Module header -->
+                                <div class="card-header d-flex justify-content-between align-items-center"
+                                    data-toggle="collapse"
+                                    data-target="#module{{ index }}"
+                                    style="cursor: pointer;">
+                                    <h6 class="mb-0">
+                                        <span class="text-muted mr-2">0{{ index }}</span>
+                                        <strong>{{ module.title }}</strong>
+                                    </h6>
+                                    <i class="fa fa-times text-muted"></i>
+                                </div>
+
+                                <!-- Module body -->
+                                <div id="module{{ index }}" class="collapse {% if forloop.first %}show{% endif %}"
+                                    data-parent="#courseModules">
+                                    <div class="card-body">
+                                        {% for content in module.contents.all %}
+                                            <div class="d-flex justify-content-between align-items-center mb-3 lesson-item">
+                                            
+                                                <div>
+                                                    <i class="fa fa-play-circle text-primary mr-2"></i>
+                                                    <a href="{% url 'content_detail' content.id %}">{{ content.item.title }}</a>
+                                                </div>
+                                                <i class="fa fa-lock text-muted"></i>
+                                            </div>
+                                        {% empty %}
+                                            <p class="text-muted">Hozircha mavzu yo‘q</p>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    
+               </div>
+
+                <div class="col-lg-4 mt-5 mt-lg-0">
+                    <div class="bg-primary mb-5 py-3">
+                        <h3 class="text-white py-3 px-4 m-0">Course Features</h3>
+                        <div class="d-flex justify-content-between border-bottom px-4">
+                            <h6 class="text-white my-3">Instructor</h6>
+                            <h6 class="text-white my-3">{{course.owner}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom px-4">
+                            <h6 class="text-white my-3">Rating</h6>
+                            <h6 class="text-white my-3">4.5 <small>(250)</small></h6>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom px-4">
+                            <h6 class="text-white my-3">Lectures</h6>
+                            <h6 class="text-white my-3">15</h6>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom px-4">
+                            <h6 class="text-white my-3">Duration</h6>
+                            <h6 class="text-white my-3">10.00 Hrs</h6>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom px-4">
+                            <h6 class="text-white my-3">Skill level</h6>
+                            <h6 class="text-white my-3">All Level</h6>
+                        </div>
+                        <div class="d-flex justify-content-between px-4">
+                            <h6 class="text-white my-3">Language</h6>
+                            <h6 class="text-white my-3">English</h6>
+                        </div>
+                        <h5 class="text-white py-3 px-4 m-0">Course Price: ${{course.price}}</h5>
+                        <div class="py-3 px-4">
+                            <a class="btn btn-block btn-secondary py-3 px-5" href="">Enroll Now</a>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <h2 class="mb-3">Categories</h2>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <a href="" class="text-decoration-none h6 m-0">Web Design</a>
+                                <span class="badge badge-primary badge-pill">150</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <a href="" class="text-decoration-none h6 m-0">Web Development</a>
+                                <span class="badge badge-primary badge-pill">131</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <a href="" class="text-decoration-none h6 m-0">Online Marketing</a>
+                                <span class="badge badge-primary badge-pill">78</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <a href="" class="text-decoration-none h6 m-0">Keyword Research</a>
+                                <span class="badge badge-primary badge-pill">56</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <a href="" class="text-decoration-none h6 m-0">Email Marketing</a>
+                                <span class="badge badge-primary badge-pill">98</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+
+                    <div class="mb-5">
+                        <h2 class="mb-4">Recent Courses</h2>
+                        <a class="d-flex align-items-center text-decoration-none mb-4" href="">
+                            <img class="img-fluid rounded" src="img/courses-80x80.jpg" alt="">
+                            <div class="pl-3">
+                                <h6>Web design & development courses for beginners</h6>
+                                <div class="d-flex">
+                                    <small class="text-body mr-3"><i class="fa fa-user text-primary mr-2"></i>Jhon Doe</small>
+                                    <small class="text-body"><i class="fa fa-star text-primary mr-2"></i>4.5 (250)</small>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="d-flex align-items-center text-decoration-none mb-4" href="">
+                            <img class="img-fluid rounded" src="img/courses-80x80.jpg" alt="">
+                            <div class="pl-3">
+                                <h6>Web design & development courses for beginners</h6>
+                                <div class="d-flex">
+                                    <small class="text-body mr-3"><i class="fa fa-user text-primary mr-2"></i>Jhon Doe</small>
+                                    <small class="text-body"><i class="fa fa-star text-primary mr-2"></i>4.5 (250)</small>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="d-flex align-items-center text-decoration-none mb-4" href="">
+                            <img class="img-fluid rounded" src="img/courses-80x80.jpg" alt="">
+                            <div class="pl-3">
+                                <h6>Web design & development courses for beginners</h6>
+                                <div class="d-flex">
+                                    <small class="text-body mr-3"><i class="fa fa-user text-primary mr-2"></i>Jhon Doe</small>
+                                    <small class="text-body"><i class="fa fa-star text-primary mr-2"></i>4.5 (250)</small>
+                                </div>
+                            </div>
+                        </a>
+                        <a class="d-flex align-items-center text-decoration-none" href="">
+                            <img class="img-fluid rounded" src="img/courses-80x80.jpg" alt="">
+                            <div class="pl-3">
+                                <h6>Web design & development courses for beginners</h6>
+                                <div class="d-flex">
+                                    <small class="text-body mr-3"><i class="fa fa-user text-primary mr-2"></i>Jhon Doe</small>
+                                    <small class="text-body"><i class="fa fa-star text-primary mr-2"></i>4.5 (250)</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+    <!-- Detail End -->
+{%endblock%}
